@@ -18,5 +18,6 @@ for R in ruby-1.8.7-head ruby-1.9.3-p551 ruby-2.0.0-p598 ruby-2.1.5 ruby-2.2.0 r
 do
 	rvm install $R
 	rvm use $R
+	rvm cleanup sources
 	gem install bundler
 done

@@ -10,5 +10,8 @@ RUN su -l -s /bin/bash -c '/bin/bash -l /tmp/install-ruby.sh' jenkins
 RUN su -l -s /bin/bash -c 'rvm list' jenkins
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+#CMD ["/usr/sbin/sshd", "-D"]
 
+COPY entrypoint.sh /entrypoint.sh
+
+CMD ["/bin/bash", "-l", "/entrypoint.sh"]
