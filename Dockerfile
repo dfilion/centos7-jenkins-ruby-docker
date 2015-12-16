@@ -5,12 +5,15 @@
 FROM rainingpackets/centos7-jenkins
 MAINTAINER David Filion <filiond@gmail.com>
 
+# When built on a CentOS host there is no problem, but on Ubuntu the 
+# which command is not found?!  So we'll explicity install it just to be sure.
+RUN /usr/bin/yum -y install which
+
 COPY install-ruby.sh /tmp/install-ruby.sh
 RUN su -l -s /bin/bash -c '/bin/bash -l /tmp/install-ruby.sh' jenkins
 RUN su -l -s /bin/bash -c 'rvm list' jenkins
 
 EXPOSE 22
-#CMD ["/usr/sbin/sshd", "-D"]
 
 COPY entrypoint.sh /entrypoint.sh
 
