@@ -1,3 +1,4 @@
+/bin/bash
 #
 # Install a selection of Ruby versions, in particular those compatible with
 # the various active Puppet versions.
@@ -6,18 +7,26 @@
 # available binaries.
 #
 # There are no Ruby binaries currently available for CentOS 7.
-#  - Last check: 2015.11.23
+#  - Last check: 2016.04.13
 #
 
-# Setup RVM in the Jenkins account.
-/bin/gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-/usr/bin/curl -sSL https://get.rvm.io | /bin/bash -s stable
-source /var/lib/jenkins/.rvm/scripts/rvm
+set -e
 
-for R in ruby-1.8.7-head ruby-1.9.3-p551 ruby-2.0.0-p598 ruby-2.1.5 ruby-2.2.0 ruby-2.2.1
-do
-	rvm install $R
-	rvm use $R
-	rvm cleanup sources
-	gem install bundler
-done
+# Load RVM into a shell session *as a function*
+if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+  # First try to load from a user install
+  source "$HOME/.rvm/scripts/rvm"
+elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+  # Then try to load from a root install
+  source "/usr/local/rvm/scripts/rvm"
+else
+  printf "ERROR: An RVM installation was not found.\n"
+  exit 3
+fi
+
+#source /var/lib/jenkins/.rvm/scripts/rvm
+
+rvm install $@
+rvm use $@
+gem install bundler
+rvm list
