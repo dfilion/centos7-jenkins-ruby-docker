@@ -1,9 +1,9 @@
 ## What is centos6-jenkins-ruby?
 
-centos7-jenkins-ruby is an image that provides a CentOS 7 SSH Jenkins-CI client with
+centos7-jenkins-ruby is an image that provides a CentOS 7 Jenkins-CI SSH client with
 various Ruby versions pre-installed using RVM.
 
-The purpose of this image is to provide a Jenkins SSH client to test Puppet
+The purpose of this image is to provide a Jenkins-CI SSH client to test Puppet
 modules against various Ruby versions.
 
 The following Ruby versions are pre-installed.
